@@ -6,11 +6,11 @@
  * and refresh the saved copy. When offline, use the saved copy.
  * CACHE_NAME only needs changing if you remove or rename files; normal edits update on their own.
  */
-var CACHE_NAME = 'floready-v3';
+var CACHE_NAME = 'floready-v4';
 var APP_FILES = [
   './', 'index.html', 'css/styles.css', 'manifest.webmanifest',
   'js/helpers.js', 'js/data.js', 'js/art.js', 'js/storage.js', 'js/es.js', 'js/i18n.js', 'js/speech.js', 'js/app.js',
-  'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png'
+  'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'
 ];
 // Fonts come from Google; save them too so the app looks right offline
 var FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];

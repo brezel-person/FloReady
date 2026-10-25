@@ -158,6 +158,8 @@ function renderHome() {
   document.getElementById('install-hint').hidden = state.installHintDismissed || isInstalled();
 
   document.getElementById('hero-region').textContent = 'Life in ' + (region.id === 'panhandle' ? 'the Panhandle' : region.name);
+  // Read aloud describes the picture, which is hidden from screen readers
+  document.querySelector('.home-hero').dataset.speak = 'Picture: Life in ' + (region.id === 'panhandle' ? 'the Panhandle' : region.name);
   document.getElementById('hero-art').innerHTML = '<svg width="100%" height="100%" viewBox="0 0 350 150" preserveAspectRatio="xMidYMid slice">' + HEROES[region.id] + '</svg>';
 }
 
@@ -193,6 +195,7 @@ function renderPassport() {
     slots.push('<span class="mini-stamp is-empty" aria-hidden="true"></span>');
   }
   document.getElementById('passport-stamps').innerHTML = slots.join('');
+  document.getElementById('passport-stamps').dataset.speak = stamped.length ? 'Stamps from: ' + stamped.map(function (p) { return p.name; }).join(', ') : '';
 
   // Home shows only what's still to visit; visited places live on the Passport page
   // Newest additions first; visited places drop off this preview

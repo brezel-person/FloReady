@@ -82,6 +82,8 @@ var ES_PATTERNS = [
     var region = esIn(m[1] === 'the Panhandle' ? 'Panhandle' : m[1]);
     return region === null ? null : 'La vida ' + region;
   }],
+  [/^Picture: (.+)$/, function (m) { var what = esPart(m[1]); return what === null ? null : 'Imagen: ' + what; }],
+  [/^Stamps from: (.+)$/, function (m) { return 'Sellos de: ' + m[1]; }],
   [/^Your zone: (.+)$/, function (m) { return 'Tu zona: ' + m[1]; }],
   [/^(.+) \(your region\)$/, function (m) { var r = esPart(m[1]); return r === null ? null : r + ' (tu región)'; }],
   [/^(.+) \((\d+)\)$/, function (m) {
@@ -109,6 +111,33 @@ var ES_PATTERNS = [
 
 /* ---------- Every other sentence and label ---------- */
 var ES_TEXT = {
+  // Read aloud
+  "Home screen. It shows your next steps, your storm kit progress and your Florida Travel Passport.": "Pantalla de inicio. Muestra tus próximos pasos, el avance de tu kit para tormentas y tu Pasaporte de Viaje de Florida.",
+  "Prepare screen, Hurricanes tab. It shows how ready you are, the hurricane season, three steps to get ready and what storm alerts mean.": "Pantalla Prepararse, pestaña Huracanes. Muestra qué tan preparado estás, la temporada de huracanes, tres pasos para prepararte y qué significan las alertas.",
+  "Prepare screen, Outdoors tab. Safety tips for heat and sun, water and the ground, with things to do and things to avoid.": "Pantalla Prepararse, pestaña Aire libre. Consejos de seguridad para el calor y el sol, el agua y el suelo, con lo que debes hacer y lo que debes evitar.",
+  "Prepare screen, Wildlife tab. Safety tips for alligators, snakes and other Florida wildlife.": "Pantalla Prepararse, pestaña Vida silvestre. Consejos de seguridad sobre caimanes, serpientes y otros animales de Florida.",
+  "Explore screen. A list of places to visit, with search and filters at the top. Each place has a heart button that saves it to your bucket list.": "Pantalla Explorar. Una lista de lugares para visitar, con búsqueda y filtros arriba. Cada lugar tiene un botón de corazón que lo guarda en tu lista de deseos.",
+  "Learn screen, Regions tab. Facts about the region you choose, and a table that compares two regions.": "Pantalla Aprender, pestaña Regiones. Datos sobre la región que elijas y una tabla que compara dos regiones.",
+  "Learn screen, Florida 101 tab. One tip at a time, with Previous and Next buttons.": "Pantalla Aprender, pestaña Florida 101. Un consejo a la vez, con botones de Anterior y Siguiente.",
+  "Learn screen, Lingo tab. Flashcards of local words. Tap the card to flip it and hear what the word means.": "Pantalla Aprender, pestaña Jerga. Tarjetas con palabras locales. Toca la tarjeta para darle la vuelta y escuchar qué significa.",
+  "Resources screen. Trusted apps and websites, your move plan, and emergency phone numbers.": "Pantalla Recursos. Apps y sitios web confiables, tu plan de mudanza y números de emergencia.",
+  "Apps and websites screen. Trusted links grouped by topic. Each one opens in a new tab.": "Pantalla de apps y sitios web. Enlaces confiables agrupados por tema. Cada uno se abre en una pestaña nueva.",
+  "Move plan screen. A checklist for your move, grouped by when to do each step.": "Pantalla del plan de mudanza. Una lista de pasos para tu mudanza, agrupados según cuándo hacer cada uno.",
+  "Florida Travel Passport screen. Stamps from places you have visited, then your bucket list.": "Pantalla del Pasaporte de Viaje de Florida. Sellos de los lugares que visitaste y luego tu lista de deseos.",
+  "Quiz screen. Pick one answer for each question.": "Pantalla del cuestionario. Elige una respuesta para cada pregunta.",
+  "Settings screen. Your name and region, language, accessibility options and dark mode.": "Pantalla de ajustes. Tu nombre y región, el idioma, las opciones de accesibilidad y el modo oscuro.",
+  "A panel is open.": "Hay un panel abierto.",
+  "Scroll down to hear more.": "Desplázate hacia abajo para escuchar más.",
+  "Season timeline from June through November. The peak, August through October, is shaded.": "Línea de la temporada, de junio a noviembre. El pico, de agosto a octubre, está sombreado.",
+  "on": "activado",
+  "off": "desactivado",
+  "dropdown": "menú desplegable",
+  "text box": "cuadro de texto",
+  "Checked": "Marcado",
+  "Not checked": "Sin marcar",
+  "link": "enlace",
+  "button": "botón",
+  "selected": "seleccionado",
   // ---- Added later: phone numbers, call box, install tip, updated facts ----
   "Call": "Llamar",
   "Never drive through flooded roads. Just 12 inches of moving water can carry away most cars, and 6 inches can knock you off your feet.": "Nunca manejes por calles inundadas. Solo 12 pulgadas de agua en movimiento pueden arrastrar la mayoría de los autos, y 6 pulgadas pueden derribarte.",
