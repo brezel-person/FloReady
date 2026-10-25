@@ -643,7 +643,12 @@ dl.lingo dd { font-size: 0.88rem; color: var(--muted); margin-top: 2px; line-hei
 /* switch */
 .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 48px; }
 .switch { position: relative; width: 50px; height: 30px; flex-shrink: 0; }
-.switch input { position: absolute; inset: -9px -6px; opacity: 0; cursor: pointer; margin: 0; z-index: 1; } /* tap area bigger than the drawn switch */
+/* The real checkbox is invisible and sits on top of the drawn switch, a bit bigger so it's easy to tap.
+   Its size is set exactly: Safari won't stretch a checkbox to fill a box on its own. */
+.switch input {
+  position: absolute; top: -9px; left: -6px; width: calc(100% + 12px); height: calc(100% + 18px);
+  -webkit-appearance: none; appearance: none; opacity: 0; cursor: pointer; margin: 0; z-index: 1;
+}
 .switch .track { position: absolute; inset: 0; border-radius: 15px; background: var(--check-border); transition: background 0.2s; pointer-events: none; }
 .switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; transition: transform 0.2s; }
 .switch input:checked + .track { background: var(--palm); }
