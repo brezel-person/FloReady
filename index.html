@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>FloReady</title>
+<meta name="description" content="FloReady helps people who just moved to Florida get ready: hurricane prep, safety tips, places to explore, regional culture and a move checklist." />
+<meta name="theme-color" content="#0B7680" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+
+  <div class="intro">
+    <h1>FloReady</h1>
+    <p>Get ready for life in Florida: hurricane prep, safety tips, places to explore, regional culture and your move checklist. Your progress is saved on this device.</p>
+    <p class="intro-tip"><b>Best on a phone.</b> Open this page on your phone and add it to your home screen to use it like an app, even offline.</p>
+    <span class="badge">Version 1.0</span>
+  </div>
+
+  <div class="phone" id="phone">
+    <div class="app-screens" id="app-screens">
+
+      <!-- ============ WELCOME / ONBOARDING ============ -->
+      <section class="screen is-active" id="screen-welcome" aria-label="Welcome">
+        <div class="stack">
+          <div class="between welcome-head">
+          <div class="row">
+            <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="13" r="8" fill="#F5CF1E"/><path d="M3 22c3-2.5 6-2.5 9 0s6 2.5 9 0 6-2.5 8 0" fill="none" stroke="#127F8E" stroke-width="2.5" stroke-linecap="round"/><path d="M3 27c3-2.5 6-2.5 9 0s6 2.5 9 0 6-2.5 8 0" fill="none" stroke="#0B7680" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.35rem;">FloReady</span>
+          </div>
+            <div class="lang-toggle" role="group" aria-label="Language / Idioma" id="onb-lang"></div>
+          </div>
+          <div style="border-radius: 24px; overflow: hidden; background: #8ED8D0; height: 140px;">
+            <svg width="100%" height="140" viewBox="0 0 342 140" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+              <circle cx="250" cy="62" r="34" fill="#F5CF1E"/>
+              <path d="M0 96 C60 78 120 82 180 92 S290 104 342 88 V140 H0Z" fill="#C4D150"/>
+              <path d="M0 112 C50 102 100 104 160 114 S280 124 342 108 V140 H0Z" fill="#0E8A93"/>
+              <path d="M20 126c12-5 24-5 36 0s24 5 36 0M200 130c12-5 24-5 36 0s24 5 36 0" fill="none" stroke="#DDF4FA" stroke-width="2" stroke-linecap="round"/>
+              <path d="M78 96 C80 70 84 50 92 36" fill="none" stroke="#5B4632" stroke-width="4" stroke-linecap="round"/>
+              <path d="M92 36c-14-6-28-2-36 8M92 36c-4-12-16-20-28-18M92 36c10-10 26-12 36-4M92 36c14 0 24 8 28 18M92 36c2-12 10-20 20-22" fill="none" stroke="#7FA82E" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="screen-title">Welcome to Florida. Let’s get you ready.</h1>
+            <p class="sub">Tell us a little about your move and we’ll tailor tips to your new home.</p>
+          </div>
+          <div>
+            <label class="field-label" for="name-input">What should we call you? <span class="muted" style="font-weight: 500;">(optional)</span></label>
+            <input class="text-input" id="name-input" type="text" placeholder="Your first name" autocomplete="given-name" />
+          </div>
+          <div>
+            <div class="field-label" id="onb-region-label">Where are you settling?</div>
+            <div class="grid-2" id="onb-regions" role="group" aria-labelledby="onb-region-label"></div>
+          </div>
+          <div>
+            <div class="field-label" id="onb-stage-label">Where are you in your move?</div>
+            <div class="segmented" id="onb-stages" role="group" aria-labelledby="onb-stage-label"></div>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="finishOnboarding()">Continue</button>
+        </div>
+      </section>
+
+      <!-- ============ HOME ============ -->
+      <section class="screen" id="screen-home" aria-label="Home">
+        <div class="home-stack">
+          <div class="between" style="align-items: center;">
+            <div>
+              <div class="row muted small" style="gap: 0.3rem; font-weight: 600;"><span data-icon="pin" data-size="sm"></span><span id="home-region"></span></div>
+              <h1 class="screen-title" id="home-greeting" style="font-size: 1.6rem;">Hi there</h1>
+            </div>
+            <button class="icon-btn" aria-label="Settings" onclick="navigate('settings')"><span data-icon="gear"></span></button>
+          </div>
+
+          <!-- Hero: a Key West-style scene with the user's region -->
+          <div class="home-hero" aria-hidden="true">
+            <span class="hero-art" id="hero-art"></span>
+            <span class="hero-tag"><span data-icon="pin" data-size="sm"></span><span id="hero-region"></span></span>
+          </div>
+
+          <!-- 1. What to do next: one card, two clear rows -->
+          <section aria-labelledby="next-h">
+            <h2 class="section-label" id="next-h">Your next steps</h2>
+            <button class="ready-banner" id="ready-banner" onclick="toggleNextSteps()" aria-expanded="false" aria-controls="next-card" hidden>
+              <span class="ready-check" aria-hidden="true"><span data-icon="check"></span></span>
+              <span class="grow"><span class="title">You’re Florida ready!</span><span class="meta">Move plan and storm kit complete</span></span>
+              <span class="ready-toggle" id="ready-toggle">Show</span>
+            </button>
+            <div class="card" id="next-card" style="padding: 0.3rem 1.1rem;">
+              <button class="step-row" id="next-move-row" onclick="navigate('move')">
+                <svg width="48" height="48" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="23" fill="none" stroke="var(--palm-pale)" stroke-width="7"/><circle id="home-ring" cx="28" cy="28" r="23" fill="none" stroke="var(--palm)" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 145" transform="rotate(-90 28 28)"/><text id="home-ring-text" x="28" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor"></text></svg>
+                <span class="grow">
+                  <span class="meta">Move plan</span>
+                  <span class="title" id="home-next-title"></span>
+                  <span class="meta" id="home-next-detail"></span>
+                </span>
+                <span data-icon="chevron" style="color: var(--muted);"></span>
+              </button>
+              <button class="step-row" id="next-kit-row" onclick="openPrepare('hurricanes', 'kit')">
+                <span class="tile-ic" style="width: 48px; height: 48px; border-radius: 24px; background: var(--sun-pale); color: var(--sun-ink);"><span data-icon="wind"></span></span>
+                <span class="grow">
+                  <span class="meta">Hurricane prep</span>
+                  <span class="title" id="home-kit-title">Finish your storm kit</span>
+                  <span class="mini-bar"><span id="home-kit-bar"></span></span>
+                  <span class="meta" id="home-kit-label"></span>
+                </span>
+                <span data-icon="chevron" style="color: var(--muted);"></span>
+              </button>
+            </div>
+          </section>
+
+          <!-- 2. Florida Passport (moved here from Explore) -->
+          <section aria-labelledby="passport-h">
+            <h2 class="section-label" id="passport-h">Your Florida Travel Passport</h2>
+            <div class="card-dark">
+              <div class="between" style="align-items: center;">
+                <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.6rem;" id="passport-count"></span>
+                <button class="btn btn-sun" onclick="navigate('passport')">Open passport</button>
+              </div>
+              <div class="row" id="passport-stamps" style="flex-wrap: wrap; gap: 0.5rem;"></div>
+              <div class="bucket">
+                <div class="between" style="align-items: center;">
+                  <h3 class="bucket-title"><span data-icon="heart" data-size="sm"></span>Recently added</h3>
+                  <span class="small" id="bucket-count" style="color: #BFE7EA; font-weight: 600;"></span>
+                </div>
+                <ul class="bucket-list" id="bucket-list"></ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. One-time tip: install the app (hidden once dismissed, or when already installed) -->
+          <section class="install-hint" id="install-hint" aria-labelledby="install-h" hidden>
+            <span class="tile-ic" aria-hidden="true"><span data-icon="phone"></span></span>
+            <div class="grow">
+              <h2 class="install-title" id="install-h">Add FloReady to your home screen</h2>
+              <p>It opens like an app and works offline, even when a storm knocks out the internet.</p>
+              <p><b>iPhone:</b> tap Share, then “Add to Home Screen”. <b>Android:</b> tap the ⋮ menu, then “Install app”.</p>
+            </div>
+            <button class="icon-btn install-close" onclick="dismissInstallHint()" aria-label="Hide this tip"><span data-icon="x" data-size="sm"></span></button>
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ============ PREPARE ============ -->
+      <section class="screen" id="screen-prepare" aria-label="Prepare">
+        <div class="stack">
+          <div>
+            <h1 class="screen-title">Prepare</h1>
+            <p class="sub">Hurricanes, heat, water and wildlife, made simple.</p>
+          </div>
+          <div class="segmented" id="prep-tabs" role="group" aria-label="Prepare topics"></div>
+
+          <!-- Hurricanes: one readiness summary, three steps (each opens its own panel), then the alert terms -->
+          <div id="prep-hurricanes" class="home-stack">
+            <!-- Storm banner with the readiness score -->
+            <div class="storm-hero">
+              <svg class="storm-art" viewBox="0 0 350 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="350" height="170" fill="#0B5F69"/>
+                <circle cx="282" cy="58" r="64" fill="#0E6F7A"/>
+                <g transform="translate(282 58)" fill="none" stroke="#8ED8D0" stroke-linecap="round">
+                  <path d="M0 -8c14 0 22 10 18 22" stroke-width="6"/><path d="M0 8c-14 0-22-10-18-22" stroke-width="6"/>
+                  <path d="M18 14c-4 14-18 22-34 18" stroke-width="4" opacity="0.7"/><path d="M-18 -14c4-14 18-22 34-18" stroke-width="4" opacity="0.7"/>
+                  <circle r="6" fill="#F5CF1E" stroke="none"/>
+                </g>
+                <path d="M0 150c30-10 60-10 90 0s60 10 90 0 60-10 90 0 60 10 80 0v20H0z" fill="#127F8E"/>
+                <path d="M0 160c30-8 60-8 90 0s60 8 90 0 60-8 90 0 60 8 80 0v10H0z" fill="#0E8A93"/>
+                <g stroke="#6FD3EC" stroke-width="2" stroke-linecap="round" opacity="0.5"><path d="M226 120l-6 14M246 128l-6 14M262 136l-5 11M206 132l-5 11"/></g>
+                <path d="M330 170c-2-30-10-52-26-68" stroke="#3D2E22" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M304 102c-18 2-30 10-36 22M304 102c-8-14-20-20-34-20M304 102c-4-14-2-26 6-34M304 102c10-6 22-6 30 2" stroke="#7FA82E" stroke-width="6" fill="none" stroke-linecap="round"/>
+              </svg>
+              <div class="storm-content">
+                <span class="storm-eyebrow">Hurricane readiness</span>
+                <div class="storm-score">
+                  <svg width="72" height="72" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="23" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="7"/><circle id="ready-ring" cx="28" cy="28" r="23" fill="none" stroke="#F5CF1E" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 145" transform="rotate(-90 28 28)"/><text id="ready-ring-text" x="28" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF"></text></svg>
+                  <h2 class="storm-title" id="ready-title"></h2>
+                </div>
+              </div>
+            </div>
+
+            <!-- Season timeline: June to November, peak shaded, today marked -->
+            <section aria-labelledby="season-h">
+              <h2 class="section-label" id="season-h">Hurricane season</h2>
+              <div class="card season-card">
+                <div class="season-bar" id="season-bar"></div>
+                <p class="small" id="season-note" style="line-height: 1.5;"></p>
+              </div>
+              <a class="link-row storm-link" href="https://www.nhc.noaa.gov" target="_blank" rel="noopener noreferrer" aria-label="Check active storms at the National Hurricane Center (opens in a new tab)">
+                <span class="tile-ic" style="background: var(--coral-pale); color: var(--coral-ink);"><span data-icon="wind"></span></span>
+                <span class="grow"><span class="title">Check active storms</span><span class="meta">Live forecasts and cones from the National Hurricane Center</span></span>
+                <span style="color: var(--muted); display: inline-flex;"><span data-icon="external" data-size="sm"></span></span>
+              </a>
+            </section>
+
+            <section aria-labelledby="steps-h">
+              <h2 class="section-label" id="steps-h">Get ready in 3 steps</h2>
+              <ol class="prep-steps" id="prep-steps"></ol>
+            </section>
+
+            <section aria-labelledby="alerts-h">
+              <h2 class="section-label" id="alerts-h">Know the alerts</h2>
+              <div class="alert-grid">
+                <div class="alert-tile alert-watch">
+                  <span class="pill pill-sun">WATCH</span>
+                  <b>Possible</b>
+                  <p>Hurricane conditions are possible within about 48 hours.</p>
+                  <span class="alert-do">Finish your prep.</span>
+                </div>
+                <div class="alert-tile alert-warning">
+                  <span class="pill pill-coral">WARNING</span>
+                  <b>Expected</b>
+                  <p>Hurricane conditions are expected within about 36 hours.</p>
+                  <span class="alert-do">Follow evacuation orders.</span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Heat & storms / Wildlife share a simple card list -->
+          <div id="prep-other" class="stack" hidden></div>
+
+          <p class="safety-note" role="note"><span data-icon="info" data-size="sm"></span><span><b>General information, not official emergency guidance.</b> Always follow instructions from local officials. In an emergency, call 911.</span></p>
+        </div>
+      </section>
+
+      <!-- ============ EXPLORE ============ -->
+      <section class="screen" id="screen-explore" aria-label="Explore Florida">
+        <div class="stack">
+          <div>
+            <h1 class="screen-title">Explore Florida</h1>
+            <p class="sub">Springs, parks, beaches and local food beyond the theme parks.</p>
+          </div>
+          <div class="search-wrap">
+            <label for="explore-search" class="sr-only">Search places</label>
+            <span data-icon="search"></span>
+            <input class="text-input" id="explore-search" type="search" placeholder="Search springs, parks, beaches…" oninput="renderExplore()" />
+          </div>
+          <div class="chips" id="explore-cats" role="group" aria-label="Categories"></div>
+          <div class="row explore-filters">
+            <button class="chip" id="near-toggle" aria-pressed="false" onclick="toggleNear()" style="display: inline-flex; align-items: center; gap: 0.35rem;"><span data-icon="pin" data-size="sm"></span>My region</button>
+            <label class="sr-only" for="region-filter">Filter by region</label>
+            <select class="select-chip" id="region-filter" onchange="setExploreRegion(this.value)"></select>
+          </div>
+          <p class="small muted" id="explore-count" style="margin-top: 0.6rem;"></p>
+          <div id="explore-list"></div>
+        </div>
+      </section>
+
+      <!-- ============ LEARN ============ -->
+      <section class="screen" id="screen-learn" aria-label="Learn Florida">
+        <div class="stack">
+          <div>
+            <h1 class="screen-title">Learn Florida</h1>
+            <p class="sub">The things locals take for granted.</p>
+          </div>
+
+          <button class="quiz-banner" onclick="startQuiz()">
+            <span class="quiz-badge" aria-hidden="true">?</span>
+            <span class="grow">
+              <span class="title">Am I a Floridian yet?</span>
+              <span class="meta" id="quiz-banner-meta">8 quick questions on what you’ve learned</span>
+            </span>
+            <span class="btn btn-sun" aria-hidden="true">Play</span>
+          </button>
+
+          <div class="segmented" id="learn-tabs" role="group" aria-label="Learn sections"></div>
+
+          <!-- Regions -->
+          <div id="learn-regions" class="stack">
+            <div>
+              <label class="field-label" for="learn-region-select">Choose a region</label>
+              <select class="select-lg" id="learn-region-select" onchange="setLearnRegion(this.value)"></select>
+            </div>
+            <div class="card" style="padding: 0; overflow: hidden;" id="region-card"></div>
+            <div>
+              <h2 class="h2">Compare regions</h2>
+              <div class="row" style="margin-top: 0.7rem;">
+                <label class="sr-only" for="cmp-a">First region</label>
+                <select class="select" id="cmp-a" onchange="renderCompare()"></select>
+                <span class="muted small" aria-hidden="true">vs</span>
+                <label class="sr-only" for="cmp-b">Second region</label>
+                <select class="select" id="cmp-b" onchange="renderCompare()"></select>
+              </div>
+              <div class="card" style="padding: 0.3rem 0.8rem; margin-top: 0.7rem;">
+                <table class="compare" id="cmp-table"></table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Florida 101 tips -->
+          <div id="learn-tips" hidden>
+            <div>
+              <label class="field-label" for="tip-topic-select">Topic</label>
+              <select class="select-lg" id="tip-topic-select" onchange="setTipTopic(this.value)"></select>
+            </div>
+            <div id="tip-deck" style="margin-top: 1.1rem;"></div>
+            <p class="sr-only" id="tip-live" aria-live="polite" data-translated></p>
+            <p class="small muted" style="margin-top: 0.8rem; line-height: 1.5;">Tips about laws are short summaries, not legal advice. Rules change, so check the official source.</p>
+            <details class="lingo-all">
+              <summary>See all tips in this topic</summary>
+              <div id="tip-list" style="padding-bottom: 0.9rem;"></div>
+            </details>
+          </div>
+
+          <!-- Lingo -->
+          <div id="learn-lingo" hidden>
+            <div id="lingo-deck"></div>
+            <details class="lingo-all">
+              <summary>See all terms</summary>
+              <dl class="lingo" id="lingo-list"></dl>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RESOURCES ============ -->
+      <section class="screen" id="screen-resources" aria-label="Resources">
+        <div class="home-stack">
+          <div>
+            <h1 class="screen-title">Resources</h1>
+            <p class="sub">Trusted apps and sites, and your move checklist.</p>
+          </div>
+          <!-- 1. Stay informed: teal -->
+          <section aria-labelledby="res-info-h">
+            <h2 class="section-label res-label res-label-info" id="res-info-h"><span data-icon="globe" data-size="sm"></span>Stay informed</h2>
+            <button class="res-card res-info" onclick="navigate('links')">
+              <span class="res-top">
+                <span class="res-ic"><span data-icon="globe"></span></span>
+                <span class="grow"><span class="title">Apps &amp; websites</span><span class="meta">Official sites and apps Floridians use for weather, hurricanes, roads and more</span></span>
+                <span class="res-go" aria-hidden="true"><span data-icon="chevron" data-size="sm"></span></span>
+              </span>
+              <span class="res-chips" id="res-chips"></span>
+            </button>
+          </section>
+
+          <!-- 2. Your move: sunny yellow -->
+          <section aria-labelledby="res-move-h">
+            <h2 class="section-label res-label res-label-move" id="res-move-h"><span data-icon="list" data-size="sm"></span>Your move</h2>
+            <button class="res-card res-move" onclick="navigate('move')">
+              <span class="res-top">
+                <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="23" fill="none" stroke="var(--surface)" stroke-width="7"/><circle id="res-ring" cx="28" cy="28" r="23" fill="none" stroke="var(--palm)" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 145" transform="rotate(-90 28 28)"/><text id="res-ring-text" x="28" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor"></text></svg>
+                <span class="grow"><span class="title">Your move plan</span><span class="meta" id="res-move-meta"></span></span>
+                <span class="res-go" aria-hidden="true"><span data-icon="chevron" data-size="sm"></span></span>
+              </span>
+              <span class="bar" style="width: 100%;"><span id="res-move-bar"></span></span>
+              <span class="res-next" id="res-move-next"></span>
+            </button>
+          </section>
+
+          <!-- 3. In an emergency: soft red -->
+          <section aria-labelledby="sos-h">
+            <h2 class="section-label res-label res-label-sos" id="sos-h"><span data-icon="phone" data-size="sm"></span>In an emergency</h2>
+            <div class="sos-card" id="sos-card"></div>
+            <p class="small muted sos-hint">Tap a number to call. You’ll be asked to confirm first.</p>
+          </section>
+        </div>
+      </section>
+
+      <!-- ============ APPS & WEBSITES ============ -->
+      <section class="screen" id="screen-links" aria-label="Apps and websites">
+        <button class="back-btn" onclick="navigate('resources')"><span data-icon="back" data-size="sm"></span>Resources</button>
+        <div class="stack">
+          <div>
+            <h1 class="screen-title">Apps &amp; websites</h1>
+            <p class="sub">What Floridians use to stay safe and informed. Links open in a new tab.</p>
+          </div>
+          <div id="links-list"></div>
+        </div>
+      </section>
+
+      <!-- ============ MOVE PLAN ============ -->
+      <section class="screen" id="screen-move" aria-label="Move plan">
+        <button class="back-btn" onclick="navigate('resources')"><span data-icon="back" data-size="sm"></span>Resources</button>
+        <div class="stack">
+          <div>
+            <h1 class="screen-title">Your move plan</h1>
+            <p class="sub" id="move-sub"></p>
+          </div>
+          <div class="card-dark">
+            <div style="font-family: var(--font-display); font-weight: 700; font-size: 2rem;"><span id="move-done"></span><span style="font-size: 1.1rem; color: #BFE7EA;"> of <span id="move-total"></span> done</span></div>
+            <div class="bar"><span id="move-bar"></span></div>
+            <div class="row" style="background: var(--palm-deep); border-radius: 14px; padding: 0.75rem 0.85rem; align-items: flex-start;">
+              <span data-icon="calendar" style="color: #F5CF1E;"></span>
+              <span class="small" style="color: #E2F5F6; line-height: 1.45;" id="move-next"></span>
+            </div>
+          </div>
+          <div id="move-stages"></div>
+        </div>
+      </section>
+
+      <!-- ============ PASSPORT & BUCKET LIST ============ -->
+      <section class="screen" id="screen-passport" aria-label="Florida Travel Passport">
+        <button class="back-btn" onclick="navigate('home')"><span data-icon="back" data-size="sm"></span>Home</button>
+        <div class="home-stack">
+          <div>
+            <h1 class="screen-title">Florida Travel Passport</h1>
+            <p class="sub">Stamps you’ve collected and places you want to see.</p>
+          </div>
+          <section aria-labelledby="stamps-h">
+            <div class="between"><h2 class="section-label" id="stamps-h">Stamps</h2><span class="small muted" id="pp-stamp-count"></span></div>
+            <div class="stamp-grid" id="pp-stamps"></div>
+          </section>
+          <section aria-labelledby="togo-h">
+            <div class="between"><h2 class="section-label" id="togo-h">Bucket list · to visit</h2><span class="small muted" id="pp-togo-count"></span></div>
+            <div id="pp-togo"></div>
+          </section>
+          <section aria-labelledby="visited-h">
+            <div class="between"><h2 class="section-label" id="visited-h">Bucket list · visited</h2><span class="small muted" id="pp-visited-count"></span></div>
+            <div id="pp-visited"></div>
+          </section>
+          <button class="btn btn-primary btn-block" onclick="navigate('explore')">Find more places</button>
+        </div>
+      </section>
+
+      <!-- ============ QUIZ ============ -->
+      <section class="screen" id="screen-quiz" aria-label="Floridian quiz">
+        <button class="back-btn" onclick="navigate('learn')"><span data-icon="back" data-size="sm"></span>Learn</button>
+        <div class="stack" id="quiz-body"></div>
+      </section>
+
+      <!-- ============ SETTINGS ============ -->
+      <section class="screen" id="screen-settings" aria-label="Settings">
+        <button class="back-btn" onclick="back()"><span data-icon="back" data-size="sm"></span>Back</button>
+        <div class="stack">
+          <h1 class="screen-title">Settings</h1>
+          <div class="card">
+            <div>
+              <label class="field-label" for="set-name">Your name</label>
+              <input class="text-input" id="set-name" type="text" oninput="setName(this.value)" />
+            </div>
+            <div>
+              <label class="field-label" for="set-region">Your region</label>
+              <select class="select" id="set-region" onchange="setRegion(this.value)"></select>
+            </div>
+          </div>
+          <section aria-labelledby="lang-h">
+            <h2 class="section-label" id="lang-h">Language / Idioma</h2>
+            <div class="card">
+              <div class="segmented" id="set-lang" role="group" aria-labelledby="lang-h"></div>
+              <p class="small muted" style="line-height: 1.5;">Changes the language of the whole app.</p>
+            </div>
+          </section>
+          <section aria-labelledby="a11y-h">
+            <h2 class="section-label" id="a11y-h">Accessibility</h2>
+            <div class="card">
+              <div>
+                <div class="field-label" id="text-size-label">Text size</div>
+                <div class="segmented text-size" id="text-size" role="group" aria-labelledby="text-size-label"></div>
+                <p class="a11y-preview" id="text-size-preview">Preview: Hurricane season runs June 1 to November 30.</p>
+              </div>
+              <div class="switch-row" style="border-top: 1px solid var(--line-soft); padding-top: 0.6rem;">
+                <label for="bold-toggle" style="font-weight: 600;">Bold text <span class="muted small" style="display: block; font-weight: 500;">Makes all text a little heavier</span></label>
+                <span class="switch"><input type="checkbox" id="bold-toggle" onchange="setA11y('bold', this.checked)" /><span class="track"></span></span>
+              </div>
+              <div class="switch-row" style="border-top: 1px solid var(--line-soft); padding-top: 0.6rem;">
+                <label for="motion-toggle" style="font-weight: 600;">Reduce motion <span class="muted small" style="display: block; font-weight: 500;">Turns off fades, slides and flips</span></label>
+                <span class="switch"><input type="checkbox" id="motion-toggle" onchange="setA11y('motion', this.checked)" /><span class="track"></span></span>
+              </div>
+              <div class="switch-row" style="border-top: 1px solid var(--line-soft); padding-top: 0.6rem;">
+                <label for="read-toggle" style="font-weight: 600;">Read aloud <span class="muted small" style="display: block; font-weight: 500;">Shows a Listen button that reads the screen out loud</span></label>
+                <span class="switch"><input type="checkbox" id="read-toggle" onchange="setA11y('read', this.checked)" /><span class="track"></span></span>
+              </div>
+              <div class="read-options" id="read-options" hidden>
+                <div class="field-label" id="voice-speed-label">Voice speed</div>
+                <div class="segmented" id="voice-speed" role="group" aria-labelledby="voice-speed-label"></div>
+                <button class="btn btn-light btn-block" onclick="speakSample()" style="margin-top: 0.7rem;"><span data-icon="speaker" data-size="sm"></span>Play a sample</button>
+              </div>
+            </div>
+          </section>
+          <div class="card">
+            <div class="switch-row">
+              <label for="dark-toggle" style="font-weight: 600;">Dark mode</label>
+              <span class="switch"><input type="checkbox" id="dark-toggle" onchange="toggleTheme(this.checked)" /><span class="track"></span></span>
+            </div>
+          </div>
+          <section aria-labelledby="about-h">
+            <h2 class="section-label" id="about-h">About FloReady</h2>
+            <div class="card">
+              <p class="small" style="line-height: 1.55;">FloReady gives general information to help newcomers settle into Florida. It is not official emergency, medical or legal advice.</p>
+              <p class="small" style="line-height: 1.55;"><b>During a storm or emergency, follow instructions from local officials and call 911 if you need help.</b> Places, hours and rules change, so check official sources before you go.</p>
+              <p class="small muted">Version 1.0</p>
+            </div>
+          </section>
+          <section aria-labelledby="data-h">
+            <h2 class="section-label" id="data-h">Your data</h2>
+            <div class="card">
+              <p class="small" style="line-height: 1.5;">Your progress is saved only on this device. Nothing is sent anywhere.</p>
+              <button class="btn btn-light btn-block" onclick="restart()">Redo the welcome questions</button>
+              <button class="btn btn-light btn-block erase-btn" id="erase-ask" onclick="askEraseData()">Erase all my data</button>
+              <div class="erase-confirm" id="erase-confirm" hidden>
+                <p class="small"><b>Erase everything?</b> Your checklists, bucket list, stamps and settings will be deleted.</p>
+                <div class="btn-row">
+                  <button class="btn btn-light" onclick="cancelEraseData()">Cancel</button>
+                  <button class="btn btn-danger" onclick="eraseData()">Erase</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+    </div>
+
+    <nav class="bottom-nav is-hidden" id="bottom-nav" aria-label="Main">
+      <button class="nav-btn" data-screen="home" onclick="navigate('home')"><span class="pill-ic"><span data-icon="home"></span></span>Home</button>
+      <button class="nav-btn" data-screen="prepare" onclick="navigate('prepare')"><span class="pill-ic"><span data-icon="wind"></span></span>Prepare</button>
+      <button class="nav-btn" data-screen="explore" onclick="navigate('explore')"><span class="pill-ic"><span data-icon="compass"></span></span>Explore</button>
+      <button class="nav-btn" data-screen="learn" onclick="navigate('learn')"><span class="pill-ic"><span data-icon="book"></span></span>Learn</button>
+      <button class="nav-btn" data-screen="resources" onclick="navigate('resources')"><span class="pill-ic"><span data-icon="buoy"></span></span>Resources</button>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="if (event.target === this) closeSheet()">
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" id="sheet"></div>
+    </div>
+
+    <!-- Call confirmation: numbers never dial on the first tap -->
+    <div class="call-overlay" id="call-overlay" onclick="if (event.target === this) closeCall()" hidden>
+      <div class="call-box" role="alertdialog" aria-modal="true" aria-labelledby="call-title" aria-describedby="call-name call-desc">
+        <span class="call-ic" aria-hidden="true"><span data-icon="phone"></span></span>
+        <h2 class="h2" id="call-title"></h2>
+        <p class="call-name" id="call-name"></p>
+        <p class="call-desc" id="call-desc"></p>
+        <div class="btn-row">
+          <button class="btn btn-light" id="call-cancel" onclick="closeCall()">Cancel</button>
+          <a class="btn btn-call" id="call-go" href="#" onclick="placedCall()"><span data-icon="phone" data-size="sm"></span><span id="call-go-label"></span></a>
+        </div>
+      </div>
+    </div>
+
+    <button class="listen-btn" id="listen-btn" onclick="readCurrentScreen()" hidden></button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+<!-- Scripts load in order: helpers and data first, then the app that uses them -->
+<script src="js/helpers.js"></script>
+<script src="js/data.js"></script>
+<script src="js/art.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/es.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
+</body>
+</html>
