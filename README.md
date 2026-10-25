@@ -6,3 +6,12 @@ Hurricane prep, heat and water safety, places to explore, regional culture, Flor
 It's a web-based app written in plain HTML, CSS and JavaScript, with no frameworks and no build step. It runs in any modern browser. It saves progress on the device, and it can be installed on a phone's home screen as well as works offline once it has loaded.
 
 I am excited to be able to share my app with you.
+
+## Features
+- Hurricane prep, heat and water safety, and wildlife tips
+- Places to explore, with a bucket list and travel passport
+- Regional culture, Florida tips, local lingo and a quiz
+- A move checklist and emergency numbers
+- English and Spanish, plus read aloud, larger text and dark mode
+
+## Live Link:
